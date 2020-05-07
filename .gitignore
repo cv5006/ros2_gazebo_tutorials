@@ -1,0 +1,7 @@
+# Git src only
+build/
+install/
+log/
+
+# VS Code Setting files
+.vscode/
