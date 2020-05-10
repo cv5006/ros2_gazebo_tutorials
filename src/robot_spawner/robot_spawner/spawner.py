@@ -8,7 +8,6 @@ from std_srvs.srv import Empty
 from ament_index_python.packages import get_package_share_directory
 from gazebo_msgs.srv import SpawnEntity
 
-
 class Spawner(Node):
 
     def __init__(self):
@@ -17,10 +16,14 @@ class Spawner(Node):
         self.cli = self.create_client(SpawnEntity, "/spawn_entity")
         #call_async()
 
+        #TODO: How to find model directory path?
+        model_path = os.path.abspath(
+            os.path.join(os.path.dirname(__file__),
+              '..', '..', '..', '..', '..', '..', 'models'))
 
         sdf_file_path = os.path.join(
-            "/home","seo",".gazebo", "models", "H_LowerLimb", "model.sdf")
-
+            model_path, "guide","model.sdf")
+        print(sdf_file_path)
         self.request = SpawnEntity.Request()
         self.request.name = 'test'
         self.request.xml = open(sdf_file_path, 'r').read()
@@ -33,7 +36,7 @@ class Spawner(Node):
     # and return response. Or, type execption will be thrown!
     def spawn_callback(self, request, response):
         self.get_logger().info("Sending Request...")
-        future = self.cli.call_async(self.request)
+        #future = self.cli.call_async(self.request)
         
         return response
 
