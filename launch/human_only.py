@@ -34,20 +34,22 @@ def generate_launch_description():
     spawner = Node(
         package = 'robot_spawner',            
         node_executable = 'spawner',
-        node_name = 'spawner'
+        node_name = 'spawner',
+        output='screen' ## output option for debug
     )
 
     gazebo = ExecuteProcess(
         cmd=['gazebo','--verbose','-s','libgazebo_ros_factory.so'],
-        additional_env=env,
+        #additional_env=env,
         output='screen'
     )
     #gzserver = IncludeLaunchDescription(
     #    PythonLaunchDescriptionSource(
     #            '/opt/ros/eloquent/share/gazebo_ros/launch/gzserver.launch.py'),
     #)
-    return LaunchDescription([
+    return LaunchDescription([        
         gazebo,
-        spawner
+        spawner,
+        
         #gzserver        
     ])

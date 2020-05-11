@@ -17,12 +17,13 @@ class Spawner(Node):
         #call_async()
 
         #TODO: How to find model directory path?
-        model_path = os.path.abspath(
+        model_path = os.path.abspath( #'/home/seo/.gazebo/models')
             os.path.join(os.path.dirname(__file__),
               '..', '..', '..', '..', '..', '..', 'models'))
 
         sdf_file_path = os.path.join(
             model_path, "guide","model.sdf")
+        #sdf_file_path = '/home/seo/.gazebo/models/H_LowerLimb/model.sdf'
         print(sdf_file_path)
         self.request = SpawnEntity.Request()
         self.request.name = 'test'
@@ -36,14 +37,15 @@ class Spawner(Node):
     # and return response. Or, type execption will be thrown!
     def spawn_callback(self, request, response):
         self.get_logger().info("Sending Request...")
-        #future = self.cli.call_async(self.request)
+        future = self.cli.call_async(self.request)
         
         return response
 
 
 def main(args=None):
+    print('Spawner Spawned!')
     rclpy.init(args=args)
-
+    
     node = Spawner()
 
     rclpy.spin(node)
